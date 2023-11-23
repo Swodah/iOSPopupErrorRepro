@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               xmlns:SKIA="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
+               x:Class="iOSPopupErrorRepro.AnimDialog">
+    <toolkit:Popup.Content>
+        <Border VerticalOptions="Center"
+                HorizontalOptions="Fill"
+                BackgroundColor="{StaticResource Gray300}"
+                Padding="0"
+                Margin="2"
+                StrokeShape="RoundRectangle 20,20,20,20">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <StackLayout VerticalOptions="Center"
+                             HorizontalOptions="Fill"
+                             Margin="0"
+                             Grid.Row="0"
+                             Padding="0"
+                             Spacing="2">
+                    <SKIA:SKLottieView x:Name="AnimIcon"
+                                       VerticalOptions="Start"
+                                       HorizontalOptions="Center"
+                                       WidthRequest="100"
+                                       HeightRequest="100"
+                                       RepeatCount="0"
+                                       IsAnimationEnabled="False"
+                                       Source="{Binding Path=IconAnimation}"
+                                       Margin="8" />
+                    <toolkit:MediaElement x:Name="player"
+                                          ShouldAutoPlay="True"
+                                          Source="{Binding Path=AudioFile}"
+                                          IsVisible="False" />
+                    <Label Margin="20, 0, 20, 0"
+                           Text="{Binding Path=Title}"
+                           IsVisible="{Binding Path=Title, Converter={StaticResource StringToVisible}}"
+                           TextColor="{AppThemeBinding Light={StaticResource TextLight}, Dark={StaticResource TextDark}}"
+                           FontSize="Medium"
+                           HorizontalTextAlignment="Center"
+                           HorizontalOptions="Center" />
+                    <Label Margin="20, 4"
+                           Text="{Binding Path=Message}"
+                           TextColor="{AppThemeBinding Light={StaticResource TextLight}, Dark={StaticResource TextDark}}"
+                           IsVisible="{Binding Path=Message, Converter={StaticResource StringToVisible}}"
+                           FontSize="Small"
+                           HorizontalTextAlignment="Center"
+                           HorizontalOptions="Center" />
+                </StackLayout>
+                <Grid Margin="0"
+                      Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition x:Name="ColumnLeft"
+                                          Width="*" />
+                        <ColumnDefinition x:Name="ColumnRight"
+                                          Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Border Grid.Column="0"
+                            StrokeShape="RoundRectangle 10,10,10,10"
+                            IsVisible="{Binding Path=OkButton, Converter={StaticResource StringToVisible}}">
+                        <Button IsVisible="{Binding Path=OkButton, Converter={StaticResource StringToVisible}}"
+                                Margin="0"
+                                BackgroundColor="{AppThemeBinding Light={StaticResource ElementLight}, Dark={StaticResource ElementDark}}"
+                                TextColor="{AppThemeBinding Light={StaticResource TextLight}, Dark={StaticResource TextDark}}"
+                                Text="{Binding OkButton}"
+                                Clicked="BtnOk_Clicked" />
+
+                    </Border>
+                    <Border Grid.Column="1"
+                            StrokeShape="RoundRectangle 10,10,10,10"
+                            IsVisible="{Binding Path=CancelButton, Converter={StaticResource StringToVisible}}">
+                        <Button Grid.Column="1"
+                                IsVisible="{Binding Path=CancelButton, Converter={StaticResource StringToVisible}}"
+                                TextColor="{AppThemeBinding Light={StaticResource TextLight}, Dark={StaticResource TextDark}}"
+                                BackgroundColor="{AppThemeBinding Light={StaticResource ElementLight}, Dark={StaticResource ElementDark}}"
+                                Margin="0"
+                                Text="{Binding CancelButton}"
+                                Clicked="BtnCancel_Clicked" />
+
+                    </Border>
+                </Grid>
+            </Grid>
+        </Border>
+    </toolkit:Popup.Content>
+</toolkit:Popup>
